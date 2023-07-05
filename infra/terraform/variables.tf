@@ -15,3 +15,8 @@ variable "tg_bot_token" {
   type        = string
   description = "Telegram bot token"
 }
+
+variable "tg_bot_webhook_path" {
+  type        = string
+  description = "Path for Telegram to send events to"
+}

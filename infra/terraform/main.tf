@@ -1,5 +1,5 @@
 resource "telegram_bot_webhook" "anekbot" {
-  url = "${yandex_api_gateway.telegram_webhooks.domain}/${var.tg_bot_token}"
+  url = "${yandex_api_gateway.telegram_webhooks.domain}/${var.tg_bot_webhook_path}"
 }
 
 resource "yandex_api_gateway" "telegram_webhooks" {
@@ -17,7 +17,7 @@ resource "yandex_api_gateway" "telegram_webhooks" {
       version : "1.0.0"
     },
     paths : {
-      "/${var.tg_bot_token}" : {
+      "/${var.tg_bot_webhook_path}" : {
         "post" : {
           "x-yc-apigateway-integration" : {
             type : "cloud_functions"
