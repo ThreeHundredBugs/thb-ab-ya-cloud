@@ -6,8 +6,8 @@
   (:import [javax.servlet.http HttpServlet HttpServletRequest HttpServletResponse])
   (:gen-class
     :name    anekbot.AnekCore
-    :extends HttpServlet
-    :methods [[doGet [HttpServletRequest HttpServletResponse] void]]))
+    :extends javax.servlet.http.HttpServlet
+    :methods [[doGet [javax.servlet.http.HttpServletRequest javax.servlet.http.HttpServletResponse] void]]))
 
 (defonce env (atom nil))
 
@@ -129,5 +129,10 @@
 - Ожидаю секретаршу!\"}") 2))
 
   (tbot/get-me get-bot)
+
+  #_(do
+    (require '[clj-java-decompiler.core :refer [decompile]])
+    (decompile (-main nil))
+    )
 
   )

@@ -9,6 +9,9 @@
                  [telegrambot-lib "2.7.0"]
 
                  ;; https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
-                 [javax.servlet/javax.servlet-api "4.0.1"]]
+                 [javax.servlet/javax.servlet-api "4.0.1"]
+
+                 #_[com.clojure-goes-fast/clj-java-decompiler "0.3.4"]]
   :repl-options {:init-ns anekbot.core}
-  :main anekbot.core)
+  :main anekbot.core
+  :aot  [anekbot.core])
