@@ -1,0 +1,32 @@
+name: Deploy anekbot
+on:
+  push:
+    branches:
+      - master
+concurrency:
+  group: ${{github.ref}}-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Build and deploy anekbot
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install `yc` CLI
+        run: |
+          curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh \
+          | bash -s -- -a
+      - name: Configure `yc`
+        env:
+          KEY: ${{secrets.YANDEX_SA_KEY}}
+        run: |
+          yc config profile create anekbot
+          echo "${KEY}" > key.json
+          yc config set service-account-key key.json
+          yc config set cloud-id ${{vars.YANDEX_CLOUD_ID}}
+          yc config set folder-id ${{vars.YANDEX_FOLDER_ID}}
+          yc serverless function list
+      - name: test
+        run: yc serverless function list
