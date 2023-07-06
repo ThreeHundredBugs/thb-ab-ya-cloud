@@ -27,16 +27,6 @@ resource "yandex_api_gateway" "telegram_webhooks" {
           }
         }
       }
-      "/echo" : {
-        "get" : {
-          "x-yc-apigateway-integration" : {
-            type : "cloud_functions"
-            function_id : data.yandex_function.anekbot.id
-            tag : "$latest"
-            service_account_id : yandex_iam_service_account.anekbot_invoker.id
-          }
-        }
-      }
     }
   })
 }

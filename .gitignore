@@ -18,3 +18,4 @@ pom.xml.asc
 *.tfstate
 *.tfstate.backup
 /infra/terraform/.terraform
+/src/local.py
