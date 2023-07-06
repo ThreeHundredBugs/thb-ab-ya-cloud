@@ -2,7 +2,7 @@ name: Deploy anekbot
 on:
   push:
 #    branches:
-#      - master
+#      - main
 concurrency:
   group: ${{github.ref}}-deploy
   cancel-in-progress: true
