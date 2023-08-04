@@ -19,3 +19,4 @@ pom.xml.asc
 *.tfstate.backup
 /infra/terraform/.terraform
 /src/local.py
+__pycache__

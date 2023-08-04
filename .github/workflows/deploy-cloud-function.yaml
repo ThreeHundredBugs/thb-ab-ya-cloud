@@ -1,8 +1,8 @@
 name: Deploy anekbot
 on:
   push:
-#    branches:
-#      - main
+    branches:
+      - main
 concurrency:
   group: ${{github.ref}}-deploy
   cancel-in-progress: true
@@ -11,6 +11,7 @@ jobs:
   deploy:
     name: Build and deploy anekbot
     runs-on: ubuntu-latest
+    environment: prod
     steps:
       - name: Checkout
         uses: actions/checkout@v3
