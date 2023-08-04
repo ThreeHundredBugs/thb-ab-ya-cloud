@@ -1,7 +1,7 @@
 import enum
+import json
 import os
 import random
-import json
 import httpx
 from telegram import Bot
 
@@ -20,7 +20,8 @@ async def main(event: dict, context):
         return {'statusCode': 200}
 
     if 'анек!' in text.lower():
-        await get_bot().send_message(
+        bot = Bot(token=_BOT_TOKEN)
+        await bot.send_message(
             chat_id=msg['chat']['id'],
             text=get_anek(),
             reply_to_message_id=msg['message_id'],
@@ -46,10 +47,3 @@ def get_anek_type() -> AnekType:
     if rand > 0.85:
         return AnekType.ANEK18
     return AnekType.ANEK
-
-
-def get_bot() -> Bot:
-    global _BOT
-    if _BOT is None:
-        _BOT = Bot(token=_BOT_TOKEN)
-    return _BOT
