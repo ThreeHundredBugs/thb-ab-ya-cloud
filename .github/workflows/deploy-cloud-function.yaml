@@ -19,6 +19,7 @@ jobs:
         env:
           INSTALL_DIR: ${{env.RUNNER_TEMP}}/yc
         run: |
+          echo $RUNNER_TEMP avc
           curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh \
           | bash -s -- -i "${INSTALL_DIR}"
           echo "${INSTALL_DIR}" >> "${GITHUB_PATH}"
