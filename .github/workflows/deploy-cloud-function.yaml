@@ -14,10 +14,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
       - name: Install `yc` CLI
         run: |
           curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh \
-          | bash -s -- -a
+          | bash -s -- -i /usr/local/
+
       - name: Configure `yc`
         env:
           KEY: ${{secrets.YANDEX_SA_KEY}}
@@ -27,6 +29,23 @@ jobs:
           yc config set service-account-key key.json
           yc config set cloud-id ${{vars.YANDEX_CLOUD_ID}}
           yc config set folder-id ${{vars.YANDEX_FOLDER_ID}}
-          yc serverless function list
-      - name: test
-        run: yc serverless function list
+
+      - name: Create anekbot archive
+        run: |
+          cd ./src/anekbotpy
+          zip -r "${GITHUB_WORKSPACE}/anekbot.zip" .
+
+      - name: Deploy anekbot
+        env:
+            FUNCTION_ID: d4el6cch94mopqqmkveh
+            BOT_TOKEN: ${{secrets.BOT_TOKEN}}
+        run: |
+          yc serverless function version create \
+            --function-id "${FUNCTION_ID}" \
+            --runtime python311 \
+            --entrypoint main.main \
+            --memory 128MB \
+            --execution-timeout 5s \
+            --environment "BOT_TOKEN=${BOT_TOKEN}" \
+            --min-log-level trace \
+            --source-path "${GITHUB_WORKSPACE}/anekbot.zip"
