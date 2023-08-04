@@ -16,13 +16,11 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install `yc` CLI
-        env:
-          INSTALL_DIR: ${{env.RUNNER_TEMP}}/yc
         run: |
-          echo $RUNNER_TEMP avc
+          INSTALL_DIR="${RUNNER_TEMP}/yc"
+          echo "${INSTALL_DIR}" >> "${GITHUB_PATH}"
           curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh \
           | bash -s -- -i "${INSTALL_DIR}"
-          echo "${INSTALL_DIR}" >> "${GITHUB_PATH}"
 
       - name: Configure `yc`
         env:
