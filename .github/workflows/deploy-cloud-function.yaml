@@ -18,7 +18,7 @@ jobs:
       - name: Install `yc` CLI
         run: |
           INSTALL_DIR="${RUNNER_TEMP}/yc"
-          echo "${INSTALL_DIR}" >> "${GITHUB_PATH}"
+          echo "${INSTALL_DIR}/bin" >> "${GITHUB_PATH}"
           curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh \
           | bash -s -- -i "${INSTALL_DIR}"
 
