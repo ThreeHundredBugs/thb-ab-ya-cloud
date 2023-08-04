@@ -1,7 +1,7 @@
 provider "yandex" {
   token     = var.yandex_token
-  cloud_id  = "thb-cloud"
-  folder_id = "b1gn7p2gkekjho015chm"
+  cloud_id  = var.yandex_cloud_id
+  folder_id = var.yandex_folder_id
   zone      = "ru-central1-a"
 }
 

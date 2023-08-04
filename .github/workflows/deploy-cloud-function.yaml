@@ -1,0 +1,53 @@
+name: Deploy anekbot
+on:
+  push:
+#    branches:
+#      - main
+concurrency:
+  group: ${{github.ref}}-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Build and deploy anekbot
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install `yc` CLI
+        run: |
+          INSTALL_DIR="${RUNNER_TEMP}/yc"
+          echo "${INSTALL_DIR}/bin" >> "${GITHUB_PATH}"
+          curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh \
+          | bash -s -- -i "${INSTALL_DIR}"
+
+      - name: Configure `yc`
+        env:
+          KEY: ${{secrets.YANDEX_SA_KEY}}
+        run: |
+          yc config profile create anekbot
+          echo "${KEY}" > key.json
+          yc config set service-account-key key.json
+          yc config set cloud-id ${{vars.YANDEX_CLOUD_ID}}
+          yc config set folder-id ${{vars.YANDEX_FOLDER_ID}}
+
+      - name: Create anekbot archive
+        run: |
+          cd ./src/anekbotpy
+          zip -r "${GITHUB_WORKSPACE}/anekbot.zip" .
+
+      - name: Deploy anekbot
+        env:
+            FUNCTION_ID: d4el6cch94mopqqmkveh
+            BOT_TOKEN: ${{secrets.BOT_TOKEN}}
+        run: |
+          yc serverless function version create \
+            --function-id "${FUNCTION_ID}" \
+            --runtime python311 \
+            --entrypoint main.main \
+            --memory 128MB \
+            --execution-timeout 5s \
+            --environment "BOT_TOKEN=${BOT_TOKEN}" \
+            --min-log-level trace \
+            --source-path "${GITHUB_WORKSPACE}/anekbot.zip"
