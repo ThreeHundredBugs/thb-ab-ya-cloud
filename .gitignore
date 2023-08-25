@@ -20,3 +20,5 @@ pom.xml.asc
 /infra/terraform/.terraform
 /src/local.py
 __pycache__
+.pytest_cache
+anekbot.zip
