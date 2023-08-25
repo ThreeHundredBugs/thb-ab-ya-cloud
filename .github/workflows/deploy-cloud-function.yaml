@@ -33,7 +33,7 @@ jobs:
 
   deploy:
     name: Build and deploy anekbot
-    if: github.event == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: prod
     needs:
