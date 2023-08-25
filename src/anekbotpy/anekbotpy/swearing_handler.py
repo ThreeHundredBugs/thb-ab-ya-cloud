@@ -14,9 +14,9 @@ async def handle_swearing(bot: Bot, event: Event) -> HandlerResult:
 
     words = split_sentence(text.lower())
     if set(words) & SWEARINGS:
-        await bot.send_message(
+        await bot.send_photo(
             chat_id=msg['chat']['id'],
-            text='Разговаривай без мата, дуралей!',
+            photo='AgACAgIAAx0EaRYESgACgh1k6K7-pPxwMEjNDMWN87dMr39BugACRc8xG-RBQEt8cnLt71tN5AEAAwIAA3gAAzAE',
             reply_to_message_id=msg['message_id'],
         )
 
@@ -224,6 +224,7 @@ SWEARINGS = {
     "напиздили",
     "настопиздить",
     "нахуй",
+    "нахуя",
     "нахуйник",
     "невротебучий",
     "невъебенно",

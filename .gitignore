@@ -18,7 +18,7 @@ pom.xml.asc
 *.tfstate
 *.tfstate.backup
 /infra/terraform/.terraform
-/src/local.py
+/src/anekbotpy/local.py
 __pycache__
 .pytest_cache
 anekbot.zip
