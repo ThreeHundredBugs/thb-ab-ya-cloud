@@ -12,7 +12,7 @@ async def handle_swearing(bot: Bot, event: Event) -> HandlerResult:
     if text is None:
         return HandlerResult()
 
-    words = split_sentence(text)
+    words = split_sentence(text.lower())
     if set(words) & SWEARINGS:
         await bot.send_message(
             chat_id=msg['chat']['id'],
