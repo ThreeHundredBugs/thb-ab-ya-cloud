@@ -15,12 +15,12 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Install Python 3.11
+      - name: Install Python 3.12
         uses: actions/setup-python@v4
         with:
-          python-version: 3.11
+          python-version: 3.12
 
       - name: Install dependencies
         run: |
@@ -40,13 +40,13 @@ jobs:
       - test
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install `yc` CLI
         run: |
           INSTALL_DIR="${RUNNER_TEMP}/yc"
           echo "${INSTALL_DIR}/bin" >> "${GITHUB_PATH}"
-          curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh \
+          curl -sSL https://storage.yandexcloud.net/yandexcloud-yc/install.sh \
           | bash -s -- -i "${INSTALL_DIR}"
 
       - name: Configure `yc`
@@ -70,7 +70,7 @@ jobs:
         run: |
           yc serverless function version create \
             --function-id "${FUNCTION_ID}" \
-            --runtime python311 \
+            --runtime python312 \
             --entrypoint main.main \
             --memory 128MB \
             --execution-timeout 5s \

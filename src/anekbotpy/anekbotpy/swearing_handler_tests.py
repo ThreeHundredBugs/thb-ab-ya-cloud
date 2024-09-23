@@ -58,8 +58,8 @@ async def test_handle_swearing_positive(text: str) -> None:
 
     await handle_swearing(bot, event)
 
-    bot.send_photo.assert_called_once()
-    args, kwargs = bot.send_photo.call_args
-    assert kwargs['photo'] == 'AgACAgIAAx0EaRYESgACgh1k6K7-pPxwMEjNDMWN87dMr39BugACRc8xG-RBQEt8cnLt71tN5AEAAwIAA3gAAzAE'
-    assert kwargs['reply_to_message_id'] == 2
+    bot.set_message_reaction.assert_called_once()
+    args, kwargs = bot.set_message_reaction.call_args
+    assert kwargs['reaction'] == ["🤬"]
+    assert kwargs['message_id'] == 2
     assert kwargs['chat_id'] == -4

@@ -14,10 +14,10 @@ async def handle_swearing(bot: Bot, event: Event) -> HandlerResult:
 
     words = split_sentence(text.lower())
     if set(words) & SWEARINGS:
-        await bot.send_photo(
+        await bot.set_message_reaction(
             chat_id=msg['chat']['id'],
-            photo='AgACAgIAAx0EaRYESgACgh1k6K7-pPxwMEjNDMWN87dMr39BugACRc8xG-RBQEt8cnLt71tN5AEAAwIAA3gAAzAE',
-            reply_to_message_id=msg['message_id'],
+            message_id=msg['message_id'],
+            reaction=["🤬"],
         )
 
     return HandlerResult()
