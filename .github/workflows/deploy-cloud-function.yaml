@@ -70,7 +70,7 @@ jobs:
         run: |
           yc serverless function version create \
             --function-id "${FUNCTION_ID}" \
-            --runtime python311 \
+            --runtime python312 \
             --entrypoint main.main \
             --memory 128MB \
             --execution-timeout 5s \
